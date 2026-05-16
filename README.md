@@ -1,5 +1,7 @@
 # reckon
 
+[![CI](https://github.com/WassimBannout/reckon/actions/workflows/ci.yml/badge.svg)](https://github.com/WassimBannout/reckon/actions/workflows/ci.yml)
+
 A small Spring Boot service that ingests SEC 10-K filings and answers questions
 about them with **inline source citations**, using Retrieval-Augmented Generation
 (RAG) built on Spring AI and pgvector.
