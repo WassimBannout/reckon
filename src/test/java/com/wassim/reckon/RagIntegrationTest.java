@@ -53,7 +53,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(RagIntegrationTest.TestStubs.class)
 @TestPropertySource(properties = {
-        "spring.ai.openai.api-key=test-key",
+        "spring.ai.model.chat=none",
+        "spring.ai.model.embedding=none",
         "spring.ai.vectorstore.pgvector.dimensions=64",
         "rag.similarity-threshold=0.0"
 })

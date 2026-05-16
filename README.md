@@ -83,7 +83,7 @@ Exceptions flow into a single `@RestControllerAdvice`.
 | **`PagePdfDocumentReader`** (page-by-page) | Preserves `page_number` metadata, which is what makes citations meaningful to an analyst. | Tables and footnotes still get flattened to text. |
 | **Citation in the prompt** with `[n]` markers | Forces the LLM to ground its answer in retrieved context. The retrieved excerpts are returned alongside the answer so the user can verify. | Citation discipline depends on the LLM following instructions; not enforced post-hoc. |
 | **`similarityThreshold = 0.65`** | Empirical default; tune per embedding model. Filters out weak matches that would otherwise dilute the prompt. | Too high → "I cannot answer" on valid questions. Too low → noise. Needs an eval set to tune properly. |
-| **`gpt-4o-mini` / `text-embedding-3-small`** | Cheap enough to iterate freely; quality is sufficient for the demo. | A larger chat model would write better answers; production should A/B test. |
+| **Ollama** (`gemma3:4b` chat + `nomic-embed-text` embeddings) | Zero-cost, runs offline, no API key required, no vendor lock-in. Lets a reviewer clone and run the project end-to-end without signing up for anything. | Smaller models follow the citation format less reliably than hosted frontier models; quality of generated answers is noticeably lower than gpt-4o-mini or Claude. Production would swap to a hosted provider. |
 
 ---
 
@@ -93,7 +93,11 @@ Exceptions flow into a single `@RestControllerAdvice`.
 - JDK 21
 - Maven 3.9+
 - Docker (for pgvector and Testcontainers)
-- An `OPENAI_API_KEY` (only needed for live runs, not for tests)
+- [Ollama](https://ollama.com) running locally with two models pulled:
+  ```bash
+  ollama pull gemma3:4b           # chat
+  ollama pull nomic-embed-text    # embeddings
+  ```
 
 ### Start dependencies
 ```bash
@@ -102,7 +106,6 @@ docker compose up -d
 
 ### Run the app
 ```bash
-export OPENAI_API_KEY=sk-...
 ./mvnw spring-boot:run
 ```
 
