@@ -2,6 +2,13 @@ spring:
   application:
     name: reckon
 
+  # Optional local-only overrides — drop an application-local.yml next to the
+  # pom.xml (gitignored) to override any property below for your environment.
+  # Useful when a host port conflicts with the defaults (e.g., system Postgres
+  # on 5432) or when running against a remote Ollama instance.
+  config:
+    import: optional:file:./application-local.yml
+
   datasource:
     url: jdbc:postgresql://localhost:5432/reckon
     username: reckon
