@@ -2,9 +2,6 @@ target/
 .idea/
 *.iml
 .vscode/
-.mvn/
-mvnw
-mvnw.cmd
 .DS_Store
 
 # secrets
