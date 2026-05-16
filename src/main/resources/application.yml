@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: reckon
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/reckon
+    username: reckon
+    password: reckon
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+  servlet:
+    multipart:
+      max-file-size: 25MB
+      max-request-size: 25MB
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:}
+      chat:
+        options:
+          model: gpt-4o-mini
+          temperature: 0.1
+      embedding:
+        options:
+          model: text-embedding-3-small
+    vectorstore:
+      pgvector:
+        initialize-schema: true
+        dimensions: 1536
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+
+rag:
+  top-k: 5
+  similarity-threshold: 0.65
+  chunk-size: 800
+  chunk-overlap: 100
+
+logging:
+  level:
+    com.wassim.reckon: DEBUG
+    org.springframework.ai: INFO
